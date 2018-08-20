@@ -10,8 +10,8 @@ def read(url)
 end
 
 def download(element, folder, file = nil)
-  uri = URI.join(element.document.url, element['href'])
-  file = File.join(__dir__, "mtr-#{Date.today.to_s}", folder, file || File.basename(uri.path))
+  uri = URI.join(element.document.url, URI.encode(element['href']))
+  file = File.join(__dir__, "mtr-#{Date.today.to_s}", folder, file || File.basename(element['href']))
   FileUtils.mkdir_p(File.dirname(file))
   puts "Downloading #{uri} ..."
   IO.copy_stream(open(uri), file)
