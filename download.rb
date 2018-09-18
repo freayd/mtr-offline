@@ -36,3 +36,8 @@ maps.css('.generalcontent table').each do |line|
     download(layout_maps[i],   File.join('Maps', layout_folder),   station_file)
   end
 end
+
+alternatives = read('https://www.mtr.com.hk/en/customer/services/needs_index.html')
+alternatives.css('[href$=pdf]').each do |alternative|
+  download(alternative, 'Alternatives', "#{alternative.text.strip}.pdf")
+end
